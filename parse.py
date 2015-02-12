@@ -9,8 +9,8 @@ for item in glob.glob('data/*.htm'):
     temp_lst = []
     try:
         with open(item, 'rU') as f:
-            temp = f.readlines()[1145]
-
+            temp = f.readlines()[383]
+            pprint.pprint(temp)
             temp_dict = {}
 
             data_str = [x.split('>')[-1] for x in temp.split('<')][3:-11]
@@ -34,6 +34,7 @@ for item in glob.glob('data/*.htm'):
 
     except Exception as e:
         print "Exception:", e
+        exit(1)
 
     consolidated_list.append(temp_lst)
 
