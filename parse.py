@@ -1,6 +1,5 @@
 import glob
 import json
-import pprint
 
 consolidated_list = []
 

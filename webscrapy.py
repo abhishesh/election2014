@@ -43,8 +43,7 @@ for item in entities_dict.keys():
     for i in range(ctr + 1)[1:]:
         filename = "Constituencywise" + item + str(i) + ".htm"
         try:
-            data = urllib2.urlopen('http://eciresults.nic.in/%s?ac=%d'
-                                    % (filename, i))
+            data = urllib2.urlopen('http://eciresults.nic.in/{}?ac={}'.format(filename, i))
             with open('data/%s' % (filename), "w") as f:
                 temp = data.read()
                 f.write(temp)
