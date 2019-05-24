@@ -2,7 +2,7 @@ import urllib2
 
 entities_dict = {
                     "U01": 1,
-                    "S01": 42,
+                    "S01": 25,
                     "S02": 2,
                     "S03": 14,
                     "S04": 40,
@@ -36,14 +36,18 @@ entities_dict = {
                     "S24": 80,
                     "S28": 5,
                     "S25": 42,
+                    "S29": 17,
                 }
+
 
 for item in entities_dict.keys():
     ctr = int(entities_dict[item])
     for i in range(ctr + 1)[1:]:
-        filename = "Constituencywise" + item + str(i) + ".htm"
+        filename = "Constituencywise{}{}.htm".format(item, str(i))
         try:
-            data = urllib2.urlopen('http://eciresults.nic.in/{}?ac={}'.format(filename, i))
+            url_to_open = 'http://results.eci.gov.in/pc/en/constituencywise/{}?ac={}'.format(filename, i)
+            print "Saving -----", url_to_open
+            data = urllib2.urlopen(url_to_open)
             with open('data/%s' % (filename), "w") as f:
                 temp = data.read()
                 f.write(temp)
