@@ -17,6 +17,10 @@ def main():
     con.execute(
         f"CREATE TABLE election_data AS SELECT * FROM read_json('{json_file_path}')"
     )
+    # Save the entire table as csv
+    con.execute(
+        f"COPY election_data TO election_data_raw.csv WITH (HEADER TRUE, DELIMITER ',')"
+    )
 
     # Execute SQL query
     result = con.execute(
