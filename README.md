@@ -15,27 +15,37 @@ We get a JSON file of constituency wise data. This can be used to aggregate vari
 ```json
 [
     {
-        "State": "Telangana",
-        "Constituency": "Mahabubabad",
+        "state": "Telangana",
+        "constituency": "Mahabubabad",
         "OSN": "1",
-        "Candidate": "Kalluri. Venkateswara Rao.",
-        "Party": "Communist Party of India",
-        "EVM Votes": "45694",
-        "Postal Votes": "25",
-        "Total Votes": "45719",
-        "% of Votes": "4.65"
+        "candidate": "Kalluri. Venkateswara Rao.",
+        "party": "Communist Party of India",
+        "evm_votes": "45694",
+        "postal_votes": "25",
+        "total_votes": "45719",
+        "perc_votes": "4.65"
     },
     {
-        "State": "Telangana",
-        "Constituency": "Mahabubabad",
+        "state": "Telangana",
+        "constituency": "Mahabubabad",
         "OSN": "2",
-        "Candidate": "Kavitha Malothu",
-        "Party": "Telangana Rashtra Samithi",
-        "EVM Votes": "461824",
-        "Postal Votes": "285",
-        "Total Votes": "462109",
-        "% of Votes": "46.98"
+        "candidate": "Kavitha Malothu",
+        "party": "Telangana Rashtra Samithi",
+        "evm_votes": "461824",
+        "postal_votes": "285",
+        "total_votes": "462109",
+        "perc_votes": "46.98"
     },
-    
+    {
+        "state": "Telangana",
+        "constituency": "Mahabubabad",
+        "OSN": "3",
+        "candidate": "Jatothu Hussain",
+        "party": "Bharatiya Janata Party",
+        "evm_votes": "25333",
+        "postal_votes": "154",
+        "total_votes": "25487",
+        "perc_votes": "2.59"
+    }
 ]
 ```

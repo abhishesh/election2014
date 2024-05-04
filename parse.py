@@ -30,17 +30,18 @@ for filename in glob.glob("data/*.htm"):
                 cols = row.find_all('td')
                 if len(cols) >= 7:  # Ensure there are enough columns to match your data structure
                     candidate_info = {
-                        "State": state,
-                        "Constituency": constituency,
+                        "state": state,
+                        "constituency": constituency,
                         "OSN": get_text_safe(cols[0]),
-                        "Candidate": get_text_safe(cols[1]),
-                        "Party": get_text_safe(cols[2]),
-                        "EVM Votes": get_text_safe(cols[3]),
-                        "Postal Votes": get_text_safe(cols[4]),
-                        "Total Votes": get_text_safe(cols[5]),
-                        "% of Votes": get_text_safe(cols[6])
+                        "candidate": get_text_safe(cols[1]),
+                        "party": get_text_safe(cols[2]),
+                        "evm_votes": get_text_safe(cols[3]),
+                        "postal_votes": get_text_safe(cols[4]),
+                        "total_votes": get_text_safe(cols[5]),
+                        "perc_votes": get_text_safe(cols[6])
                     }
-                    all_candidates_data.append(candidate_info)
+                    if candidate_info["candidate"] != "Total":
+                        all_candidates_data.append(candidate_info)
         else:
             print(f"No 'table-party' found in {filename}")
 
