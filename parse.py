@@ -1,40 +1,51 @@
 import glob
 import json
+from bs4 import BeautifulSoup
 
-consolidated_list = []
+def get_text_safe(column):
+    """ Helper function to safely extract text from BeautifulSoup Tag, avoiding NoneType errors. """
+    return column.text.strip() if column else ""
 
-for item in glob.glob('data/*.htm'):
-    temp = ""
-    temp_lst = []
-    try:
-        with open(item, 'rU') as f:
-            temp = f.readlines()[1145]
+# List to hold all candidate data across all files
+all_candidates_data = []
 
-            temp_dict = {}
+# Loop through all .htm files in the 'data' directory
+for filename in glob.glob("data/*.htm"):
+    with open(filename, 'r', encoding='utf-8') as file:
+        soup = BeautifulSoup(file, 'html.parser')
 
-            data_str = [x.split('>')[-1] for x in temp.split('<')][3:-11]
+        # Find the table with class 'table-party'
+        table = soup.find('table', class_='table-party')
+        if table:
+            # Attempt to extract state and constituency from the table header or a designated element
+            header = soup.find('th', colspan='9')  # Adjust if the header structure is different
+            if header:
+                header_text = header.text.strip()
+                state_constituency = header_text.split("-")  # Adjust based on actual text format
+                state = state_constituency[0].strip()
+                constituency = state_constituency[1].strip() if len(state_constituency) > 1 else ''
+            
+            rows = table.find_all('tr')[3:]  # Adjust the index to skip header rows
+            for row in rows:
+                cols = row.find_all('td')
+                if len(cols) >= 7:  # Ensure there are enough columns to match your data structure
+                    candidate_info = {
+                        "State": state,
+                        "Constituency": constituency,
+                        "OSN": get_text_safe(cols[0]),
+                        "Candidate": get_text_safe(cols[1]),
+                        "Party": get_text_safe(cols[2]),
+                        "EVM Votes": get_text_safe(cols[3]),
+                        "Postal Votes": get_text_safe(cols[4]),
+                        "Total Votes": get_text_safe(cols[5]),
+                        "% of Votes": get_text_safe(cols[6])
+                    }
+                    all_candidates_data.append(candidate_info)
+        else:
+            print(f"No 'table-party' found in {filename}")
 
-            temp_dict['State'] = data_str[0].split('-')[0].strip()
-            temp_dict['Constituency'] = data_str[0].split('-')[-1].strip()
+# Save the collected data to a JSON file
+with open('election_data.json', 'w', encoding='utf-8') as json_file:
+    json.dump(all_candidates_data, json_file, ensure_ascii=False, indent=4)
 
-            # Start Index
-            si = 16
-            ei = (len(data_str) if len(data_str) else 0)
-            temp_dict['Candidates'] = []
-            while si < ei:
-                candidate_dict = {}
-                candidate_dict['Candidate'] = data_str[si].strip()
-                candidate_dict['Party'] = data_str[si+2].strip()
-                candidate_dict['Votes'] = data_str[si+4].strip()
-                temp_dict['Candidates'].append(candidate_dict)
-                si = si + 8
-
-            temp_lst.append(temp_dict)
-
-    except Exception as e:
-        print "Exception:", e
-
-    consolidated_list.append(temp_lst)
-
-with open('data.json', 'wb') as fp:
-    json.dump(consolidated_list, fp, indent=4, sort_keys=True)
+print("Data successfully saved to 'election_data.json'.")

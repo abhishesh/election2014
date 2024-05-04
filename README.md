@@ -12,22 +12,30 @@ Sample Output
 ==============
 We get a JSON file of constituency wise data. This can be used to aggregate various reports for analysis
 
-    {    
-        "Constituency": "Allahabad", 
-        "State": "Uttar Pradesh",
-        "Candidates": [
-            {
-                "Candidate": "SHYAMA CHARAN GUPTA", 
-                "Party": "Bharatiya Janata Party", 
-                "Votes": "313772"
-            }, 
-            {
-                "Candidate": "KUNWAR REWATI RAMAN SINGH ALIAS MANI", 
-                "Party": "Samajwadi Party", 
-                "Votes": "251763"
-            }
-            .
-            .
-            .
-        ]
-    }
+```json
+[
+    {
+        "State": "Telangana",
+        "Constituency": "Mahabubabad",
+        "OSN": "1",
+        "Candidate": "Kalluri. Venkateswara Rao.",
+        "Party": "Communist Party of India",
+        "EVM Votes": "45694",
+        "Postal Votes": "25",
+        "Total Votes": "45719",
+        "% of Votes": "4.65"
+    },
+    {
+        "State": "Telangana",
+        "Constituency": "Mahabubabad",
+        "OSN": "2",
+        "Candidate": "Kavitha Malothu",
+        "Party": "Telangana Rashtra Samithi",
+        "EVM Votes": "461824",
+        "Postal Votes": "285",
+        "Total Votes": "462109",
+        "% of Votes": "46.98"
+    },
+    
+]
+```
