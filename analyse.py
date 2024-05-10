@@ -4,6 +4,9 @@ import pandas as pd
 
 
 def main():
+    # Path to save the output CSV
+    output_csv_path = "election_data_analysed.csv"
+
     # Load JSON data from file
     with open("./data.json") as file:
         data = json.load(file)
@@ -34,6 +37,31 @@ def main():
     con.execute(
         f"COPY election_data TO election_data_raw.csv WITH (HEADER TRUE, DELIMITER ',')"
     )
+
+    # Execute SQL query
+    result = con.execute(
+        """SELECT
+                   State,
+                   Constituency,
+                   Candidate,
+                   Party,
+                   Votes,
+                   Rnk
+                   FROM (
+                       SELECT
+                           State,
+                           Constituency,
+                           Candidate,
+                           Party,
+                           Votes,
+                           RANK() OVER (PARTITION BY State, Constituency ORDER BY CAST(Votes AS INT) DESC) AS Rnk
+                       FROM election_data
+                   ) ranked
+                   WHERE Rnk <= 2"""
+    ).fetchdf()
+
+    # Save results to CSV
+    result.to_csv(output_csv_path, index=False)
 
     # Close the connection when done
     con.close()
