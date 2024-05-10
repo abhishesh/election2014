@@ -5,14 +5,18 @@ A python web crawler that gets constituency wise election results for 543 seats 
 Usage
 =====
 
-    python webscrapy.py
-    python parse.py
+```bash
+python webscrapy.py
+python parse.py
+python analyse.py
+```
 
 Sample Output
 ==============
 We get a JSON file of constituency wise data. This can be used to aggregate various reports for analysis
 
-    {    
+```json
+{    
         "Constituency": "Allahabad", 
         "State": "Uttar Pradesh",
         "Candidates": [
@@ -26,8 +30,6 @@ We get a JSON file of constituency wise data. This can be used to aggregate vari
                 "Party": "Samajwadi Party", 
                 "Votes": "251763"
             }
-            .
-            .
-            .
         ]
     }
+```
