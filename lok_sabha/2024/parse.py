@@ -60,6 +60,5 @@ for filename in glob.glob("data/*.htm"):
 df = pd.DataFrame(result)
 
 # Save DataFrame to CSV
-df.to_csv("election_results.csv", index=False)
-
-print("Data has been saved to election_results.csv")
+df.to_csv("election_data_raw.csv", index=False)
+print("Data has been saved to election_data_raw.csv")
